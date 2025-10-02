@@ -1,21 +1,35 @@
+
 package com.example.bms
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
+import com.example.bms.fragments.*
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MaterialTheme {
-                Surface {
-                    Text("BMS App - Ready")
-                }
+        setContentView(R.layout.activity_main)
+
+        val bottomNav: BottomNavigationView = findViewById(R.id.bottomNavigation)
+        bottomNav.setOnItemSelectedListener {
+            when(it.itemId) {
+                R.id.nav_customer -> openFragment(CustomerFragment())
+                R.id.nav_job -> openFragment(JobFragment())
+                R.id.nav_task -> openFragment(TaskFragment())
+                R.id.nav_settings -> openFragment(SettingsFragment())
             }
+            true
         }
+        openFragment(CustomerFragment())
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 }

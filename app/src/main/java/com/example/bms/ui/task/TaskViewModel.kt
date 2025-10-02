@@ -1,16 +1,16 @@
 package com.example.bms.ui.task
 
-import androidx.lifecycle.*
-import com.example.bms.data.local.entities.Task
-import com.example.bms.data.repository.TaskRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import androidx.lifecycle.ViewModel
+import android.content.Context
 
-@HiltViewModel
-class TaskViewModel @Inject constructor(private val repository: TaskRepository) : ViewModel() {
-    fun getTasksForJob(jobId: Long): LiveData<List<Task>> = repository.getTasksForJob(jobId).asLiveData()
-    fun addTask(task: Task) = viewModelScope.launch { repository.insert(task) }
-    fun updateTask(task: Task) = viewModelScope.launch { repository.update(task) }
-    fun deleteTask(task: Task) = viewModelScope.launch { repository.delete(task) }
+class TaskViewModel : ViewModel() {
+    fun getTasks(context: Context): List<String> {
+        val db = context.openOrCreateDatabase("bms_sample.db", Context.MODE_PRIVATE, null)
+        val cursor = db.rawQuery("SELECT description FROM task", null)
+        val list = mutableListOf<String>()
+        while(cursor.moveToNext()) list.add(cursor.getString(0))
+        cursor.close()
+        db.close()
+        return list
+    }
 }

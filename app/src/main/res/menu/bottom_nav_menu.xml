@@ -1,0 +1,7 @@
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_customer" android:icon="@drawable/ic_customer" android:title="Customer"/>
+    <item android:id="@+id/nav_job" android:icon="@drawable/ic_job" android:title="Job"/>
+    <item android:id="@+id/nav_task" android:icon="@drawable/ic_task" android:title="Task"/>
+    <item android:id="@+id/nav_settings" android:icon="@drawable/ic_settings" android:title="Settings"/>
+</menu>

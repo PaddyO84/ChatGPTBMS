@@ -1,17 +1,16 @@
 package com.example.bms.ui.customer
 
-import androidx.lifecycle.*
-import com.example.bms.data.local.entities.Customer
-import com.example.bms.data.repository.CustomerRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import androidx.lifecycle.ViewModel
+import android.content.Context
 
-@HiltViewModel
-class CustomerViewModel @Inject constructor(private val repository: CustomerRepository) : ViewModel() {
-    val customers: LiveData<List<Customer>> = repository.allCustomers.asLiveData()
-    fun addCustomer(customer: Customer) = viewModelScope.launch { repository.insert(customer) }
-    fun updateCustomer(customer: Customer) = viewModelScope.launch { repository.update(customer) }
-    fun deleteCustomer(customer: Customer) = viewModelScope.launch { repository.delete(customer) }
-    fun getCustomerById(id: Long) = repository.getCustomerById(id).asLiveData()
+class CustomerViewModel : ViewModel() {
+    fun getCustomers(context: Context): List<String> {
+        val db = context.openOrCreateDatabase("bms_sample.db", Context.MODE_PRIVATE, null)
+        val cursor = db.rawQuery("SELECT name FROM customer", null)
+        val list = mutableListOf<String>()
+        while(cursor.moveToNext()) list.add(cursor.getString(0))
+        cursor.close()
+        db.close()
+        return list
+    }
 }
