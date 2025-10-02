@@ -1,17 +1,12 @@
 package com.justwork.app
 
-import android.app.Application
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
-import com.example.app.helpers.CsvHelper
-import com.example.app.helpers.PdfHelper
-import com.example.app.workers.ReminderWorker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.justwork.app.ui.CustomersFragment
 import com.justwork.app.ui.JobsFragment
 import com.justwork.app.ui.TasksFragment
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,20 +28,5 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
-}
-
-@HiltAndroidApp
-class JustWorkApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-
-        // Schedule periodic reminders every 1 hour
-        val workRequest = PeriodicWorkRequestBuilder<ReminderWorker>(1, TimeUnit.HOURS).build()
-        WorkManager.getInstance(this).enqueue(workRequest)
-
-        // Generate sample PDF & CSV on app launch
-        PdfHelper(this).generateInvoice("sample_invoice.pdf")
-        CsvHelper(this).generateSampleCsv("sample_data.csv")
     }
 }

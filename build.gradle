@@ -1,24 +1,16 @@
+// Top-level build file
 buildscript {
-    ext {
-        kotlin_version = '1.9.0' // or latest stable
-        hilt_version = '2.47' // adjust to latest
-        room_version = '2.6.1'
-        work_version = '2.8.1'
-    }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "com.android.tools.build:gradle:8.2.0"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.47"
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
