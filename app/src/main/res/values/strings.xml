@@ -1,4 +1,10 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ChatGPTBMS</string>
+    <string name="app_name">JustWork</string>
+    <string name="customers">Customers</string>
+    <string name="jobs">Jobs</string>
+    <string name="tasks">Tasks</string>
+    <string name="customers_title">Customers</string>
+    <string name="jobs_title">Jobs</string>
+    <string name="tasks_title">Tasks</string>
 </resources>
